@@ -54,6 +54,21 @@ namespace CloadBerry.Services
 
             return CurrentUser;
         }
+        public async Task<bool> ChangePassword(String Password, string NewPassword)
+        {
+            var user = await _user.SingleOrDefaultAsync(x => x.Id == CurrentUser.Id && x.Password == Password);
+            if (user == null)
+                return false;
+            user.Password = NewPassword;
+            return await _cloadBeryContext.SaveChangesAsync() > 0;
+        }
+        public async Task<bool> Add(User model)
+        {
+            var user = _mapper.Map<User>(model);
+            await _cloadBeryContext.Users.AddAsync(user);
+            return await _cloadBeryContext.SaveChangesAsync() > 0;
+        }
+        public CurrentUserDTO Me() => CurrentUser;
 
     }
 }

@@ -43,6 +43,33 @@ namespace CloadBerry.Controllers
             }
 
         }
-       
+        [HttpGet("me")]
+        public CurrentUserDTO Me() => _userService.Me();
+        [HttpPut("ChangePassword")]
+        public async Task<ActionResult> ChangePassword(String Password, string NewPassword)
+        {
+            var user = await _userService.ChangePassword(Password, NewPassword);
+            if (user)
+                return Ok();
+            return NotFound();
+        }
+        [SkipAuth]
+        [HttpPost]
+        public async Task<IActionResult> Register(User model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userService.Add(model);
+                if (user)
+                    return CreatedAtAction(nameof(Register), null);
+                else
+                    return BadRequest();
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
+        }
     }
 }
