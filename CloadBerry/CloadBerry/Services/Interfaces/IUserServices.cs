@@ -11,7 +11,7 @@ namespace CloadBerry.Services.Interfaces
     {
         Task<string> Login(LoginDTO login);
         Task<bool> ChangePassword(String Password, string NewPassword);
-        Task<bool> Add(User model);
+        Task<bool> Add(UserRegisterDTO model);
         CurrentUserDTO ValidateToken(string token);
         CurrentUserDTO Me();
     }

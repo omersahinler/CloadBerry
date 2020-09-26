@@ -23,6 +23,7 @@ namespace CloadBerry.Services
         {
             _mapper = mapper;
             _user = context.Users;
+            _cloadBeryContext = context;
 
         }
         public async Task<string> Login(LoginDTO login)
@@ -62,7 +63,7 @@ namespace CloadBerry.Services
             user.Password = NewPassword;
             return await _cloadBeryContext.SaveChangesAsync() > 0;
         }
-        public async Task<bool> Add(User model)
+        public async Task<bool> Add(UserRegisterDTO model)
         {
             var user = _mapper.Map<User>(model);
             await _cloadBeryContext.Users.AddAsync(user);

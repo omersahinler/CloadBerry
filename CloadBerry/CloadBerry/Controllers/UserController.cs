@@ -54,8 +54,8 @@ namespace CloadBerry.Controllers
             return NotFound();
         }
         [SkipAuth]
-        [HttpPost]
-        public async Task<IActionResult> Register(User model)
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(UserRegisterDTO model)
         {
             if (ModelState.IsValid)
             {
